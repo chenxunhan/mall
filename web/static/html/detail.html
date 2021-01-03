@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>家居商城-详情</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../res/layui/css/layui.css">
+  <link rel="stylesheet" href="../res/static/css/index.css">
+</head>
+<body>
+
+<div class="house-header">
+  <div class="layui-container">
+    <div class="house-nav">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="login.html">登录</a>
+        <a href="">我的订单</a>
+      </span>
+      <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
+        <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
+        <a href="login.html"><i class="layui-icon layui-icon-username"></i></a>
+        <a href="usershop.html"><i class="layui-icon layui-icon-house-shop"></i></a>
+      </span>
+    </div> 
+    <div class="house-banner layui-form">
+      <a class="banner" href="index.html">
+        <img src="../res/static/img/banner.png" alt="家居商城">
+      </a>
+      <div class="layui-input-inline">
+        <input type="text" placeholder="搜索好物" class="layui-input"><i class="layui-icon layui-icon-house-find"></i>
+      </div>
+      <a class="shop" href="usershop.html"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
+    </div>
+    <ul class="layui-nav close">
+      <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
+      <li class="layui-nav-item"><a href="list.html">居家用品</a></li>
+    </ul>
+    <button id="switch">
+      <span></span><span class="second"></span><span class="third"></span>
+    </button>
+  </div>
+</div>
+
+<div class="layui-container house-detail">
+  <p class="title"><a href="index.html">首页</a> &gt; <a href="list.html">家居用品</a> &gt; <span>产品详情</span></p>
+  <div class="layui-row price">
+    <div class="layui-col-sm6">
+      <div class="intro-img"><img id="goodsImg" src="../res/static/img/goods_img1.jpg"></div>
+      <ul id="thumbUl" class="thumb">
+      </ul>
+    </div>
+    <div class="layui-col-sm6 shopChoose">
+      <div class="title"><p id="isNew"><span  class="layui-badge">新品</span></p><span style="margin-left: 0" id="goodsName"></span>好评率  <span>90%</span></div>
+      <p><span>￥<big><b id="goodsPrice">199</b></big></span>原价￥<big><del>399</del></big></p>
+      <dl><dt>颜色</dt><dd>白色</dd><dd class="active">灰色</dd><dd>黑色</dd></dl>
+      <dl><dt>尺寸</dt><dd>1.2米</dd><dd class="active">0.5米</dd></dl>
+      <div class="number layui-form">
+        <label>数量</label>
+        <div class="layui-input-inline btn-input">
+          <button class="layui-btn layui-btn-primary sup">-</button>
+          <input type="text" class="layui-input">
+          <button class="layui-btn layui-btn-primary sub">+</button>
+        </div>
+        <p class="inputTips">已超出库存数量！</p>
+      </div>
+      <div class="shopBtn">
+        <button class="layui-btn layui-btn-primary sale">立即购买</button>
+        <button class="layui-btn shop"><i class="layui-icon layui-icon-house-shop"></i>加入购物车</button>
+        <button class="layui-btn layui-btn-primary collect"><i class="layui-icon layui-icon-rate" id="collect"></i>收藏</button>
+      </div>
+    </div>
+  </div>
+  <div class="layui-row layui-col-space30">
+    <div class="layui-col-sm8 detailTab">
+      <div class="layui-tab layui-tab-brief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">详情</li>
+          <li>评论 <span id="comment_count">(120)</span></li>
+        </ul>
+        <div class="layui-tab-content">
+          <div id="detail_imgs" class="layui-tab-item layui-show">
+
+          </div>
+          <div class="layui-tab-item">
+            <div class="comment">
+              <ul id="commentUl">
+
+              </ul>
+              <div id="demo1"></div>
+              </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div class="layui-col-sm4 detailCom">
+      <p class="title">热销推荐</p>
+      <ul id="hotGoods" class="detailCom-content hot-sell">
+
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="house-footer">
+  <div class="layui-container">
+    <div class="intro">
+      <span class="first"><i class="layui-icon layui-icon-house-shield"></i>7天无理由退换货</span>
+      <span class="second"><i class="layui-icon layui-icon-house-car"></i>满99元全场包邮</span>
+      <span class="third"><i class="layui-icon layui-icon-house-diamond"></i>100%品质保证</span>
+      <span class="last"><i class="layui-icon layui-icon-house-tel"></i>客服400-2888-966</span>
+    </div>
+    <div class="about">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="about.html">关于我们</a>
+        <a href="about.html">帮助中心</a>
+        <a href="about.html">售后服务</a>
+        <a href="about.html">配送服务</a>
+        <a href="about.html">关于货源</a>
+      </span>
+      <p>家居商城版权所有 &copy; 2012-2020</p>
+    </div>   
+  </div>
+</div>
+
+<script src="../res/layui/layui.js"></script>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+  layui.config({
+    base: '../res/static/js/' 
+  }).use(['house','jquery','layer','laypage'],function(){/*layui框架执行完毕的回调函数*/
+    var $ = layui.jquery;
+    var laypage = layui.laypage;
+
+
+    //1.获取浏览器地址栏中对应的goodsId
+    var search = document.location.search;
+    console.log(search)
+    var goods_id = search.split("=")[1];
+    console.log(goods_id);
+
+    //2.发送ajax异步请求加载商品详情数据
+   /* $.get("/mall/detail.do?goodsId="+goodsId,function (response) {
+
+    })*/
+    $.get("/mall/detail.do",{goodsId:goods_id},function (response) {
+      console.log(response)
+
+      //1.设置封面图
+      $("#goodsImg").attr("src",response.goodsImg);
+      //2.循环goodsImgs将数据设置到缩略图
+      $.each(response.goodsImgs,function (index,img) {
+        //缩略图只能取4张
+          if(index < 4){
+            $("#thumbUl").append("<li><img src='"+img+"'></li>")
+          }
+
+      })
+      //设置缩略鼠标放上去移出来效果
+      //详情页——图片选择
+      var imgDetail = $(".house-detail").find(".intro-img").children("img")[0]
+              ,srcDetail = $(imgDetail).attr("src")
+              ,ulDetail = $(".house-detail").find(".thumb");
+      ulDetail.children("li").each(function(){
+        $(this).on('mouseenter', function(){
+          imgDetail.src = $(this).children("img")[0].src;
+        }).on("mouseleave", function(){
+          imgDetail.src = srcDetail;
+        });
+      });
+      //3.设置商品名称
+      $("#goodsName").text(response.goodsName.substring(0,20));
+      //4.设置新品是否显示
+      if(response.isNew == 0){
+        $("#isNew").attr("hidden",true);
+      }
+      //5.设置价格
+      $("#goodsPrice").text(response.goodsPrice);
+      //6.设置详情图片
+      $.each(response.goodsImgs,function (index,img) {
+        $("#detail_imgs").append("<li><img src='"+img+"'></li>")
+      })
+
+
+
+    })
+
+
+    var page = 1; //页码，默认第一页
+    var size = 6;//每页条数，默认8条
+
+    //使用ajax 加载当前商品的评论信息
+    $.get("/mall/comment.do",{goodsId:goods_id,page:page,size:size},function (response) {
+
+      /*初始化分页工具条*/
+      laypage.render({
+        elem: 'demo1',
+        curr: page,
+        layout: [ 'prev', 'page', 'next', 'limit'],/*分页条布局*/
+        limits: [size,10,12,15],/*每页可以选择的条数*/
+        limit: size,
+        count: response.count, //数据总数
+        jump: function(obj) {
+          console.log("obj:", obj);
+          /*count: 26 总数
+          curr: 1  current 当前页
+          elem: "demo1" 分页条id
+          groups: 5
+          index: 3
+          jump: ƒ (obj)
+          layout: (3) ["prev", "page", "next"]
+          limit: 10  每页条数，分页工具默认是10条，应该设置 为size
+          limits: (5) [10, 20, 30, 40, 50]
+          next: "&#x4E0B;&#x4E00;&#x9875;"
+          pages: 3
+          prev: "&#x4E0A;&#x4E00;&#x9875;"*/
+
+          $.get("/mall/comment.do", {goodsId: goods_id, page: obj.curr, size: obj.limit}, function (response) {
+            //设置总数
+            $("#comment_count").text("("+response.count+")");
+
+            var html = "";//拼接评论html字符串
+            /*循环评论列数据添加到评论html中*/
+            $.each(response.data,function (index,comment) {
+              html +="<li>\n" +
+                      "                  <div class=\"img\"><img src=\""+comment.userImg+"\"></div>\n" +
+                      "                  <p class=\"txt\">"+comment.comment+"</p>\n" +
+                      "                  <p class=\"time\">"+comment.commentDate+"</p>\n" +
+                      "                </li>"
+            })
+            //将循环的字符串设置到 ul列表中
+            $("#commentUl").html(html);
+          });
+        }
+      });
+
+    })
+
+
+    //使用ajax 加载当前的热门推荐数据
+    $.get("/mall/hotGoods.do",function (response) {
+
+      $.each(response,function (index,hotGoods) {
+
+        var html = "<li style='width: 300px;'><a class=\"text\">\n" +
+                "          <div><img src=\""+hotGoods.goodsImg+"\"></div>\n" +
+                "          <p>"+hotGoods.goodsName+"</p>\n" +
+                "          <p class=\"price\">￥"+hotGoods.goodsPrice+"</p>\n" +
+                "        </a></li>";
+
+        $("#hotGoods").append(html);
+
+      })
+
+    })
+
+
+
+  });
+</script>
+  
+</body>
+</html>

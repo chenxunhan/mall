@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>家居商城-列表</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="../res/layui/css/layui.css">
+  <link rel="stylesheet" href="../res/static/css/index.css">
+</head>
+<body>
+
+<div class="house-header">
+  <div class="layui-container">
+    <div class="house-nav">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="login.html">登录</a>
+        <a href="">我的订单</a>
+      </span>
+      <span class="layui-breadcrumb house-breadcrumb-icon" lay-separator=" ">
+        <a id="search"><i class="layui-icon layui-icon-house-find"></i></a>
+        <a href="login.html"><i class="layui-icon layui-icon-username"></i></a>
+        <a href="usershop.html"><i class="layui-icon layui-icon-house-shop"></i></a>
+      </span>
+    </div> 
+    <div class="house-banner layui-form">
+      <a class="banner" href="index.html">
+        <img src="../res/static/img/banner.png" alt="家居商城">
+      </a>
+      <div class="layui-input-inline">
+        <input type="text" placeholder="搜索好物" class="layui-input"><i class="layui-icon layui-icon-house-find"></i>
+      </div>
+      <a class="shop" href="usershop.html"><i class="layui-icon layui-icon-house-shop"></i><span class="layui-badge">1</span></a>
+    </div>
+    <ul class="layui-nav close">
+      <li class="layui-nav-item "><a href="index.html">首页</a></li>
+      <li class="layui-nav-item layui-this"><a href="list.html">居家用品</a></li>
+    </ul>
+    <!-- <button id="switch">
+      <span></span><span class="second"></span><span class="third"></span>
+    </button> -->
+  </div>
+</div>
+
+<div class="layui-container house-list">
+  <p class="classify"><a href="index.html">首页</a> &gt; <span>家居用品</span></p>
+  <div class="list-banner"></div>
+  <div class="filter">
+    <div><span>分类：</span><ul class="type_item" id="type_item">
+
+    </ul></div>
+    <div><span>排序：</span><ul class="sort_item">
+      <li class="active" data-value="0">默认</li>
+      <li data-value="1">价格升序<i class="layui-icon layui-icon-house-up"></i></li>
+      <li data-value="2">价格降序<i class="layui-icon layui-icon-triangle-d"></i></li>
+    </ul></div>
+  </div>
+  <div class="layui-row layui-col-space25" id="goodsDiv">
+
+  </div>
+</div>
+<br>
+<div class="house-footer">
+  <div class="layui-container">
+    <div class="intro">
+      <span class="first"><i class="layui-icon layui-icon-house-shield"></i>7天无理由退换货</span>
+      <span class="second"><i class="layui-icon layui-icon-house-car"></i>满99元全场包邮</span>
+      <span class="third"><i class="layui-icon layui-icon-house-diamond"></i>100%品质保证</span>
+      <span class="last"><i class="layui-icon layui-icon-house-tel"></i>客服400-2888-966</span>
+    </div>
+    <div class="about">
+      <span class="layui-breadcrumb" lay-separator="|">
+        <a href="about.html">关于我们</a>
+        <a href="about.html">帮助中心</a>
+        <a href="about.html">售后服务</a>
+        <a href="about.html">配送服务</a>
+        <a href="about.html">关于货源</a>
+      </span>
+      <p>家居商城版权所有 &copy; 2012-2020</p>
+    </div>   
+  </div>
+</div>
+
+<script src="../res/layui/layui.js"></script>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>
+  layui.config({
+    base: '../res/static/js/' 
+  }).use(['house','jquery','layer'],function(){
+    var $ = layui.jquery;
+    var layer=layui.layer;
+
+    //声明一个全局的类型和排序规则
+    let typeId=0;
+    let priceSortType=0;
+
+    //向后端发请求
+    $.get("../../goodsType.do",function(rs){
+      let html='<li class="active" data-value="0" >全部</li>';
+      $.each(rs,function(index,item){
+        html+='<li   data-value='+item.id+'>'+item.name+'</li>'
+      });
+      //放到页
+      $(".type_item").html(html)
+      //绑定事件
+      $(".type_item li").click(function(){
+        typeId=$(this).attr("data-value")
+        loadGoods("",typeId,priceSortType)
+      })
+      //列表页——点击切换
+      $(".house-list").children(".filter").find("ul").each(function(){
+        $(this).children("li").on('click', function(){
+          $(this).addClass("active").siblings().removeClass("active");
+        });
+      });
+    })
+
+    //写一个方法来查询商品信息 http://127.0.0.1:8080/goods.do?keywords=手机&typeId=1&priceSortType=1
+    function loadGoods(keywords,typeId,priceSortType){
+      //打开加载层
+      var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+       $.get("../../goods.do",{keywords:keywords,typeId:typeId,priceSortType:priceSortType},function(res){
+          var html="";
+          $.each(res,function (index,item) {
+            html+='<div class="layui-col-xs6 layui-col-sm3">\n' +
+                    '      <div class="list-detail">\n' +
+                    '        <div class="img"><a href="detail.html?goodsId='+item.goodsId+'"><img src="'+item.goodsImg+'"></a></div>\n' +
+                    '        <p class="title"><a href="detail.html?goodsId='+item.goodsId+'">'+item.goodsName+'</a></p>\n' +
+                    '        <p><span class="price">￥'+item.goodsPrice+'</span><span>'+item.saleNum+'</span>人付款</p> \n' +
+                    '      </div>\n' +
+                    '    </div>';
+          })
+         //再把组装好的html放到goodsDiv
+         $("#goodsDiv").html(html)
+         //关闭加载 层
+         layer.close(index);
+       })
+    }
+    //当页面加载 时直接查询商品
+    loadGoods("",0,0);
+
+   $(".sort_item li").click(function(){
+     priceSortType=$(this).attr("data-value");
+     loadGoods("",typeId,priceSortType)
+
+   })
+
+  }); 
+</script>
+
+</body>
+</html>
