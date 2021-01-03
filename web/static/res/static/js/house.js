@@ -80,7 +80,7 @@ layui.define(['element', 'carousel', 'table', 'util'], function(exports){
 
     var phone = $("#phone").val();
     if(phone==""){
-      layer.msg('验证码不能为空');
+      layer.msg('手机不能为空');
       return false;
     }
 
